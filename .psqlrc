@@ -1,0 +1,25 @@
+\set QUIET 1
+
+\setenv PAGER less
+\set HISTFILE ~/.psqlhistory- :HOST - : DBNAME
+\set HISTSIZE 2000
+
+\set PROMPT1 '%[%033[38;5;197m%]µ%[%033[38;5;208m%]-%[%033[38;5;40m%]psql:%[%033[38;5;9m%]ǁ %[%033[38;5;197m%]%n%[%033[38;5;39m%]@%[%033[38;5;214m%]%~:%[%033[38;5;199m%]%>%# %[%033[38;5;69m%]'
+\set PROMPT2 '\t%[%033[38;5;214m%]%#%[%033[38;5;196m%]»»»%[%033[38;5;159m%] '
+
+\pset border 2
+\pset format wrapped
+\pset linestyle unicode
+
+\set COMP_KEYWORD_CASE upper
+
+\timing
+
+\set cl '\\! clear;'
+\set pwd '\\! pwd;'
+\set ls '\\! ls -FG'
+
+--Administrative Queries
+
+\set menu '\\i ~/.psqlrc'
+\unset QUIET

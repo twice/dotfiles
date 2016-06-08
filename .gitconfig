@@ -1,0 +1,18 @@
+[user]
+	name = Twice Tshwenyane
+	email = twicet@gmail.com
+[color]
+	ui = true
+[core]
+  excludesfile = ~/.gitignore
+	editor = vim
+[alias]
+	st = status -s -b
+	l = log --oneline --decorate --graph
+	fixup = commit --amend -C HEAD
+	timeline = log --graph --branches --pretty=oneline --decorate
+	untracked-files = ls-files -o --exclude-standard
+	ignored-files   = ls-files --others -i --exclude-standard
+	modified-files  = ls-files -m
+[push]
+	default = simple

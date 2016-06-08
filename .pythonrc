@@ -1,0 +1,4 @@
+#I think this is for enabling the tab to used for indenting in the REPL
+import readline
+readline.parse_and_bind("set disable-completion on")
+readline.parse_and_bind("tab: self-insert")

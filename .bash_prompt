@@ -1,0 +1,113 @@
+#!/bin/bash
+
+# Regular Colors
+       BLACK="\[\033[0;30m\]"       
+         RED="\[\033[0;31m\]"         
+       GREEN="\[\033[0;32m\]"       
+      YELLOW="\[\033[0;33m\]"      
+        BLUE="\[\033[0;34m\]"        
+      PURPLE="\[\033[0;35m\]"      
+        CYAN="\[\033[0;36m\]"        
+       WHITE="\[\033[0;37m\]"       
+
+# High Intensty
+       IBLACK="\[\033[0;90m\]"      
+         IRED="\[\033[0;91m\]"        
+       IGREEN="\[\033[0;92m\]"      
+      IYELLOW="\[\033[0;93m\]"     
+        IBLUE="\[\033[0;94m\]"       
+      IPURPLE="\[\033[0;95m\]"     
+        ICYAN="\[\033[0;96m\]"       
+       IWHITE="\[\033[0;97m\]"      
+
+ #ANSI Color-Codes 256(8-bit) colors as per http://bit.ly/1gmVS98
+  LIGHT_GREEN="\[\033[38;5;184m\]"
+        VIOLA="\[\033[38;5;165m\]"
+  BLUE_PURPLE="\[\033[38;5;69m\]"
+        PEACH="\[\033[38;5;204m\]"
+   LIME_GREEN="\[\033[38;5;190m\]"
+   COLOR_NONE="\[\033[0m\]"
+
+       IPEACH="\[\033[38;5;257m\]"
+        OLIVE="\[\033[38;5;258m\]"
+         GOLD="\[\033[38;5;259m\]"
+       AZZURE="\[\033[38;5;260m\]"
+BRIGHT_PURPLE="\[\033[38;5;258m\]"
+  GOLD_YELLOW="\[\033[38;5;220m\]"
+  PAPAYA_WHIP="\[\033[38;5;221m\]"
+  PAPAYA_WHIP2="\[\033[38;5;222m\]"
+
+#bash prompt vars
+USERNAME="\u"
+     CWD="\w"
+TIME24HR="\t"
+ NEWLINE="\n"
+  PROMPT="\\$"
+
+SEPARATOR="${VIOLA}|"
+PS="${LIME_GREEN}${USERNAME}${IWHITE}${CWD}"
+PS_END="${SEPARATOR}${GOLD_YELLOW}${TIME24HR}${NEWLINE}${BLUE_PURPLE}${PROMPT}${WHITE} "
+
+#git constants
+CLEAN_WORKING_DIR="working directory clean"
+CHANGES_TO_COMMIT="Changes to be committed"
+       GIT_STATUS=""
+           BRANCH=""
+
+
+function is_git_repo() {
+  git branch &> /dev/null
+}
+
+function git_branch() {
+  local ref=$(git symbolic-ref HEAD 2> /dev/null)
+  echo ${ref##refs/heads/}
+}
+
+function working_directory_is_clean() {
+  [[ ${GIT_STATUS} =~ $CLEAN_WORKING_DIR ]] 
+}
+
+function uncommitted_changes() {
+  [[ $GIT_STATUS =~ $CHANGES_TO_COMMIT ]]
+}
+
+function build_git_prompt() {
+  GIT_STATUS="$(git status 2> /dev/null)"
+  local status=""
+
+  if working_directory_is_clean ; then
+    status="${LIME_GREEN}"
+  elif uncommitted_changes ; then
+    status="${LIGHT_GREEN}"
+  else
+    status="${IRED}"
+  fi
+
+  BRANCH="${SEPARATOR}${status}«$(git_branch)»${COLOR_NONE}"
+}
+
+function create_git_prompt() {
+  if is_git_repo ; then
+    build_git_prompt
+  else
+    BRANCH=""
+  fi
+}
+
+function active_virtualenv() {
+  if test -z "$VIRTUAL_ENV" ; then
+    VENV=""
+  else
+    VENV="${PEACH}(venv¬$(basename \"$VIRTUAL_ENV))${SEPARATOR}"
+  fi
+}
+
+function create_prompt() {
+  create_git_prompt #sets up BRANCH variable
+  active_virtualenv #sets up VENV Variable
+
+  PS1="${VENV}${PS}${BRANCH}${PS_END}"
+}
+
+PROMPT_COMMAND=create_prompt

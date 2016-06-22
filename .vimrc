@@ -67,6 +67,7 @@ Bundle 'mgutz/vim-colors'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'morhetz/gruvbox'
 Bundle 'jonathanfilip/vim-lucius'
+Bundle 'gertjanreynaert/cobalt2-vim-theme'
 
 
 filetype indent plugin on "required!

@@ -2,7 +2,6 @@ if [ -e /usr/share/terminfo/x/xterm-256color ]; then
 	export TERM='xterm-256color'
 fi
 
-source ~/bin/git-completion.bash
 
 export CLICOLOR=1
 #export LSCOLORS=ExFxBxDxCxegedabagacad
@@ -63,6 +62,10 @@ alias bl='bzr log'
 alias bs='bzr status'
 alias bu='bzr uncommit'
 
-#source ~/.oh-my-git/prompt.sh
 export PATH="/usr/local/sbin:$PATH"
+
+#Source external scripts
+
+#source ~/.oh-my-git/prompt.sh
+source ~/bin/git-completion.bash
 . ~/.bash_prompt

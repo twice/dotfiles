@@ -32,10 +32,12 @@
         OLIVE="\[\033[38;5;258m\]"
          GOLD="\[\033[38;5;259m\]"
        AZZURE="\[\033[38;5;260m\]"
+   LIGHT_BLUE="\[\033[38;5;39m\]"
 BRIGHT_PURPLE="\[\033[38;5;258m\]"
   GOLD_YELLOW="\[\033[38;5;220m\]"
   PAPAYA_WHIP="\[\033[38;5;221m\]"
   PAPAYA_WHIP2="\[\033[38;5;222m\]"
+         ROSSO="\[\033[38;5;196m\]"
 
 #bash prompt vars
 USERNAME="\u"
@@ -81,7 +83,7 @@ function build_git_prompt() {
   elif uncommitted_changes ; then
     status="${LIGHT_GREEN}"
   else
-    status="${IRED}"
+    status="${ROSSO}"
   fi
 
   BRANCH="${SEPARATOR}${status}«$(git_branch)»${COLOR_NONE}"
@@ -99,7 +101,7 @@ function active_virtualenv() {
   if test -z "$VIRTUAL_ENV" ; then
     VENV=""
   else
-    VENV="${PEACH}(venv¬$(basename \"$VIRTUAL_ENV))${SEPARATOR}"
+    VENV="${ROSSO}(${VIOLA}venv${ROSSO} → ${PAPAYA_WHIP2}$(basename $VIRTUAL_ENV)${ROSSO})${SEPARATOR}"
   fi
 }
 

@@ -19,6 +19,7 @@ alias pm='python manage.py '
 alias pyman='python manage.py '
 alias pmr='python manage.py runserver'
 alias pms='python manage.py shell'
+alias wk='workon'
 
 #Command line aliases
 alias l='ls -1p'
@@ -28,6 +29,7 @@ alias ll='ls -lhFG'
 alias mkdir='mkdir -pv' 
 alias ..='cd ..' 
 alias ...='cd ../..' 
+alias ~='cd ~'
 
 #Docker aliases
 alias dm='docker-machine'
@@ -50,7 +52,11 @@ alias gdm='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
 # Postgres aliases
 alias pg='pg_ctl'
 alias pg_start='pg_ctl -w start'
-alias pg_stop='pg_ctl -m fast stop'
+alias pg_stop='pg_ctl -s -m fast stop'
+alias startpg='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias stoppg='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+alias restartpg='stoppg && sleep 1 && startpg'
+alias statuspg='pg_ctl status -D /usr/local/var/postgres -s'
 
 # bazaar aliases
 alias b='bzr'
@@ -62,7 +68,7 @@ alias bl='bzr log'
 alias bs='bzr status'
 alias bu='bzr uncommit'
 
-export PATH="/usr/local/sbin:$PATH"
+export PATH="~/.npm-global/bin:/usr/local/sbin:$PATH"
 
 #Source external scripts
 
